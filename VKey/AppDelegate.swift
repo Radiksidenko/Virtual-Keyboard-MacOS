@@ -17,7 +17,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if let window = NSApplication.shared.windows.first {
             self.window = window
-//            window.level = .floating
+            window.level = .floating
+            window.makeKeyAndOrderFront(nil)
+//            window.contentView?.canBecomeKeyView = false
         }
     }
     
@@ -36,14 +38,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         aboutBoxWindowController?.showWindow(aboutBoxWindowController?.window)
     }
     
-    func windowLevelToggle() {
-        if window?.level == .floating {
-            window?.level = .normal
-        } else {
-            window?.level = .floating
-        }
-        print(window?.level)
-    }
+//    func windowLevelToggle() {
+//        if window?.level == .floating {
+//            window?.level = .normal
+//        } else {
+//            window?.level = .floating
+//        }
+//        print(window?.level)
+//    }
 }
 
 struct AboutView: View {

@@ -11,30 +11,43 @@ import AppKit
 @main
 struct VKeyApp: App {
     
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    @State var currentNumber: String = "1"
+    @State var myNonActivatingPanel: NSPanel?
+    
+    @State private var isMenuVisible = false
     var body: some Scene {
-        WindowGroup {
-            ContentView(appDelegate: appDelegate)
-                .onAppear {
-                    NSApp.windows.forEach { window in
-                        window.isMovableByWindowBackground = true
-                        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
-                        window.level = .floating
-                        window.isOpaque = false
-                        window.backgroundColor = .clear
-//                        window.ignoresMouseEvents = true // Пока оставляем так, обсудим позже
-                    }
+        MenuBarExtra(currentNumber, systemImage: "\(currentNumber).circle") {
+            Button("Toggle KeyBoard") {
+                currentNumber = "1"
+                if let myNonActivatingPanel = myNonActivatingPanel {
+                    myNonActivatingPanel.close()
+                    self.myNonActivatingPanel = nil
+                } else {
+                    showKeyboardPanel()
                 }
+            }
         }
-//        .commands {
-//            CommandGroup(replacing: CommandGroupPlacement.appInfo) {
-//                Button(action: {
-//                    appDelegate.showAboutPanel()
-//                }) {
-//                    Text("About My App")
-//                }
-//            }
-//        }
+        .menuBarExtraStyle(.menu)
+    }
+    
+    func showKeyboardPanel() {
+        let panel = NSPanel(
+            contentRect: NSRect(x: 100, y: 550, width: 300, height: 200),
+            styleMask: [.closable, .utilityWindow, .nonactivatingPanel],
+//            styleMask: [.closable, .utilityWindow, .nonactivatingPanel, .titled, .resizable],
+            backing: .buffered,
+            defer: false
+        )
+        
+        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+//        panel.titlebarAppearsTransparent = true
+//        panel.standardWindowButton(.closeButton)?.isHidden = true
+        
+        panel.isFloatingPanel = true
+        panel.contentView = NSHostingView(rootView: ContentView())
+        panel.orderFront(nil)
+        
+        myNonActivatingPanel = panel
     }
 }

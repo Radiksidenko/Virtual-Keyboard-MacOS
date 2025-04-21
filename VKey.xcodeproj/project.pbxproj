@@ -10,9 +10,22 @@
 		7CA38C222DB6652400527EB9 /* VKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7CA38C432DB671AC00527EB9 /* Exceptions for "VKey" folder in "VKey" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7CA38C212DB6652400527EB9 /* VKey */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7CA38C242DB6652400527EB9 /* VKey */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7CA38C432DB671AC00527EB9 /* Exceptions for "VKey" folder in "VKey" target */,
+			);
 			path = VKey;
 			sourceTree = "<group>";
 		};
@@ -252,11 +265,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VKey/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VKey/Support File/Preview Content\"";
 				DEVELOPMENT_TEAM = FP2M4U8R98;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VKey/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -279,11 +293,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VKey/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VKey/Support File/Preview Content\"";
 				DEVELOPMENT_TEAM = FP2M4U8R98;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VKey/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

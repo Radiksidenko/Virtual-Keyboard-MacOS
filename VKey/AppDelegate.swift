@@ -36,19 +36,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func showKeyboardPanel() {
         let panel = NSPanel(
-            contentRect: NSRect(x: 100, y: 550, width: 300, height: 200),
-            styleMask: [.closable, .utilityWindow, .nonactivatingPanel],
+            contentRect: NSRect(x: 100, y: 550, width: 400, height: 250),
+            styleMask: [.closable, .utilityWindow, .nonactivatingPanel, .resizable],
             backing: .buffered,
             defer: false
         )
-        
+
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.isFloatingPanel = true
-        panel.titlebarAppearsTransparent = true
-        panel.standardWindowButton(.closeButton)?.isHidden = true
+        panel.isMovable = true
+        panel.isMovableByWindowBackground = true
+        panel.minSize = NSSize(width: 500, height: 180)
+
+        panel.setFrameAutosaveName("VKeyPanel")
+        panel.setFrameUsingName("VKeyPanel")
+
         panel.contentView = NSHostingView(rootView: ContentView())
         panel.orderFront(nil)
-        
+
         myNonActivatingPanel = panel
     }
 }

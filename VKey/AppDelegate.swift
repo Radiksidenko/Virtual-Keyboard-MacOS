@@ -12,53 +12,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var window: NSWindow?
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        print("42")
+    var statusItem: NSStatusItem!
+    var myNonActivatingPanel: NSPanel?
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         
-        if let window = NSApplication.shared.windows.first {
-            self.window = window
-            window.level = .floating
-            window.makeKeyAndOrderFront(nil)
-//            window.contentView?.canBecomeKeyView = false
+        if let button = statusItem.button {
+            button.image = NSImage(systemSymbolName: "keyboard", accessibilityDescription: "VKey")
+            button.target = self
+            button.action = #selector(toggleKeyboardPanel)
         }
     }
     
-    private var aboutBoxWindowController: NSWindowController?
-    
-    func showAboutPanel() {
-        if aboutBoxWindowController == nil {
-            let styleMask: NSWindow.StyleMask = [.closable, .miniaturizable,/* .resizable,*/ .titled]
-            let window = NSWindow()
-            window.styleMask = styleMask
-            window.title = "About My App"
-            window.contentView = NSHostingView(rootView: AboutView())
-            aboutBoxWindowController = NSWindowController(window: window)
+    @objc func toggleKeyboardPanel() {
+        if let panel = myNonActivatingPanel {
+            panel.close()
+            myNonActivatingPanel = nil
+        } else {
+            showKeyboardPanel()
         }
-        
-        aboutBoxWindowController?.showWindow(aboutBoxWindowController?.window)
     }
     
-//    func windowLevelToggle() {
-//        if window?.level == .floating {
-//            window?.level = .normal
-//        } else {
-//            window?.level = .floating
-//        }
-//        print(window?.level)
-//    }
-}
-
-struct AboutView: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Text("Hello, World!")
-                Spacer()
-            }
-            Spacer()
-        }
-        .frame(minWidth: 300, minHeight: 300)
+    func showKeyboardPanel() {
+        let panel = NSPanel(
+            contentRect: NSRect(x: 100, y: 550, width: 300, height: 200),
+            styleMask: [.closable, .utilityWindow, .nonactivatingPanel],
+            backing: .buffered,
+            defer: false
+        )
+        
+        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        panel.isFloatingPanel = true
+        panel.titlebarAppearsTransparent = true
+        panel.standardWindowButton(.closeButton)?.isHidden = true
+        panel.contentView = NSHostingView(rootView: ContentView())
+        panel.orderFront(nil)
+        
+        myNonActivatingPanel = panel
     }
 }

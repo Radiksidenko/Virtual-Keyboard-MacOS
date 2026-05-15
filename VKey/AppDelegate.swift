@@ -26,9 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func toggleKeyboardPanel() {
-        if let panel = myNonActivatingPanel {
-            panel.close()
-            myNonActivatingPanel = nil
+        if let panel = myNonActivatingPanel, panel.isVisible {
+            panel.orderOut(nil)
         } else {
             showKeyboardPanel()
         }
@@ -51,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.setFrameAutosaveName("VKeyPanel")
         panel.setFrameUsingName("VKeyPanel")
 
-        panel.contentView = NSHostingView(rootView: ContentView())
+        panel.contentView = NSHostingView(rootView: ContentView(panel: panel))
         panel.orderFront(nil)
 
         myNonActivatingPanel = panel

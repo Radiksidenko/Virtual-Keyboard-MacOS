@@ -14,6 +14,9 @@ enum KeyboardLanguage: String {
 }
 
 struct ContentView: View {
+    
+    weak var panel: NSPanel?
+    
     @State private var language: KeyboardLanguage =
         KeyboardLanguage(rawValue: UserDefaults.standard.string(forKey: "keyboardLanguage") ?? "EN") ?? .en
 
@@ -121,6 +124,17 @@ struct ContentView: View {
                     .fill(Color(red: 0.12, green: 0.13, blue: 0.15))
             )
             .frame(minWidth: 500)
+            .overlay(alignment: .topLeading) {
+                HStack(spacing: 4) {
+                    TrafficLightButton(kind: .close) {
+                        NSApp.terminate(nil)
+                    }
+
+                    TrafficLightButton(kind: .minimize) {
+                        panel?.orderOut(nil)
+                    }
+                }
+            }
 
             if let popup = activePopup {
                 alternativesOverlay(for: popup)
